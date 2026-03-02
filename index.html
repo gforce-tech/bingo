@@ -138,7 +138,7 @@
                 <input type="checkbox" id="voiceToggle" onchange="saveAppState()" class="w-4 h-4 rounded border-slate-600 bg-slate-700 text-indigo-600 focus:ring-indigo-500"> 
                 Voice
             </label>
-            <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest hidden md:inline">v3.4</span>
+            <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest hidden md:inline">v3.6</span>
         </div>
     </div>
 
@@ -217,7 +217,6 @@
         let deck = [];
         let currentCustomPattern = Array(25).fill(0);
         
-        // Secondary sync mechanism for local file reliability
         const SYNC_KEY = 'bingo_live_sync';
         const bc = new BroadcastChannel('bingo_sync_channel');
 
@@ -228,9 +227,11 @@
             "Four Corners": [1,0,0,0,1, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 1,0,0,0,1],
             "Letter X": [1,0,0,0,1, 0,1,0,1,0, 0,0,1,0,0, 0,1,0,1,0, 1,0,0,0,1],
             "Diamond": [0,0,1,0,0, 0,1,0,1,0, 1,0,0,0,1, 0,1,0,1,0, 0,0,1,0,0],
-            "Windmill": [1,0,1,0,1, 0,1,1,1,0, 1,1,1,1,1, 0,1,1,1,0, 1,0,1,0,1],
+            "Windmill": [1,1,0,1,1, 1,1,0,1,1, 0,0,1,0,0, 1,1,0,1,1, 1,1,0,1,1],
             "Wine Glass": [1,1,1,1,1, 0,1,1,1,0, 0,0,1,0,0, 0,0,1,0,0, 0,1,1,1,0],
-            "Anchor": [0,0,1,0,0, 0,0,1,0,0, 1,0,1,0,1, 1,1,1,1,1, 0,1,1,1,0]
+            "Anchor": [0,1,1,1,0, 0,0,1,0,0, 0,0,1,0,0, 1,0,1,0,1, 1,1,1,1,1],
+            "Layer Cake": [1,1,1,1,1, 0,0,0,0,0, 1,1,1,1,1, 0,0,0,0,0, 1,1,1,1,1],
+            "Picture Frame": [1,1,1,1,1, 1,0,0,0,1, 1,0,0,0,1, 1,0,0,0,1, 1,1,1,1,1]
         };
 
         let patterns = {};
@@ -247,18 +248,15 @@
             } else if (params.get('view') === 'operator') {
                 switchView('control');
             } else if (window.opener) {
-                // If it was opened by another window but has no params, assume TV
                 switchView('tv');
             }
 
             if (calledNumbers.length > 0) resumeGame(); else resetGame();
 
-            // Method 1: BroadcastChannel Sync
             bc.onmessage = (ev) => {
                 if (ev.data.type === 'sync_state') applySyncedState(ev.data.state);
             };
 
-            // Method 2: Storage Event Sync (Backup for local file protocols)
             window.addEventListener('storage', (e) => {
                 if (e.key === SYNC_KEY && e.newValue) {
                     applySyncedState(JSON.parse(e.newValue));
@@ -273,14 +271,12 @@
             try {
                 let win;
                 if (isBlob) {
-                    // Running in Canvas/Restricted environment: Use document injection
                     win = window.open("", "_blank", "width=1280,height=720");
                     if (!win) throw new Error("Blocked");
                     win.document.open();
                     win.document.write(document.documentElement.outerHTML);
                     win.document.close();
                 } else {
-                    // Standalone file or hosted URL: Use role parameter
                     const url = baseUrl + "?view=tv";
                     win = window.open(url, "_blank", "width=1280,height=720");
                 }
@@ -315,7 +311,7 @@
                 calledNumbers,
                 activePattern: document.getElementById('patternSelect').value,
                 voice: document.getElementById('voiceToggle').checked,
-                timestamp: Date.now() // Ensure the storage event triggers even if data is the same
+                timestamp: Date.now() 
             };
             bc.postMessage({ type: 'sync_state', state });
             localStorage.setItem(SYNC_KEY, JSON.stringify(state));
@@ -433,7 +429,9 @@
 
         function updatePatternList() {
             const s = document.getElementById('patternSelect'); const val = s.value; s.innerHTML = '';
-            Object.keys(patterns).forEach(k => { const o = document.createElement('option'); o.value = k; o.innerText = k; s.appendChild(o); });
+            // Sort keys alphabetically
+            const sortedKeys = Object.keys(patterns).sort();
+            sortedKeys.forEach(k => { const o = document.createElement('option'); o.value = k; o.innerText = k; s.appendChild(o); });
             if (val && patterns[val]) s.value = val;
         }
 
