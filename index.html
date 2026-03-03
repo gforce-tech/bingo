@@ -11,9 +11,9 @@
         :root {
             --bg-main: #0f172a;
             --panel-bg: #1e293b;
-            --accent-primary: #6366f1;
-            --accent-secondary: #f43f5e;
-            --accent-highlight: #f59e0b;
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-secondary: #f43f5e; /* Rose */
+            --accent-highlight: #f59e0b; /* Amber */
         }
 
         body {
@@ -27,6 +27,7 @@
             padding: 0.5rem;
         }
 
+        /* Master Board Layout - Forced to fit height and prevent clipping */
         #tvMasterContainer {
             flex: 1 1 0%;
             min-height: 0;
@@ -42,7 +43,7 @@
         .bingo-grid {
             display: grid;
             grid-template-columns: auto repeat(15, 1fr);
-            grid-template-rows: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr); /* Forces exactly 5 rows to fit vertical space */
             gap: 4px; 
             height: 100%;
         }
@@ -78,6 +79,7 @@
             justify-content: center;
         }
 
+        /* Bottom Dashboard - Side-by-Side Layout */
         #dashboardRow { 
             height: 28vh; 
             min-height: 130px; 
@@ -125,7 +127,7 @@
 </head>
 <body class="md:p-4">
 
-    <!-- Top Navigation -->
+    <!-- Navbar -->
     <div id="navBar" class="flex justify-between items-center mb-2 bg-slate-800/40 p-2 rounded-2xl border border-slate-700/50 backdrop-blur-md no-print">
         <div class="flex gap-1 sm:gap-2">
             <button onclick="switchView('tv')" id="btnViewTv" class="px-3 sm:px-5 py-2 rounded-xl bg-indigo-600 font-bold text-xs sm:text-sm transition-all hover:bg-indigo-500 shadow-lg">TV</button>
@@ -142,20 +144,20 @@
         </div>
     </div>
 
-    <!-- Help Modal -->
+    <!-- Help Overlay -->
     <div id="directionsModal" class="view-hidden" onclick="toggleDirections(false)">
         <div class="bg-slate-900 border border-slate-700 p-8 rounded-[2.5rem] max-w-2xl w-full shadow-2xl" onclick="event.stopPropagation()">
-            <h2 class="text-3xl font-black text-amber-400 mb-6 flex items-center gap-3"><span>📖</span> BINGO SETUP</h2>
+            <h2 class="text-3xl font-black text-amber-400 mb-6 flex items-center gap-3"><span>📖</span> QUICK GUIDE</h2>
             <div class="space-y-4 text-slate-300">
-                <p>1. <span class="text-white font-bold">Dual Screen:</span> Click "TV WINDOW". A second window opens. Drag it to your TV and maximize it.</p>
-                <p>2. <span class="text-white font-bold">Sync:</span> Keep this device on "OPERATOR". The TV will update automatically.</p>
-                <p>3. <span class="text-white font-bold">Local Use:</span> If running as a file on your computer, ensure both windows are open in the <span class="text-white">same browser</span> (e.g., both in Chrome) to stay in sync.</p>
+                <p>1. <span class="text-white font-bold">Standalone Use:</span> Open this file on your tablet. Click <span class="text-emerald-400 font-bold">🚀 TV WINDOW</span> to open the player display.</p>
+                <p>2. <span class="text-white font-bold">Sync:</span> Keep one window on <span class="text-indigo-400 font-bold">OPERATOR</span> and the other on <span class="text-indigo-400 font-bold">TV</span>. They will update automatically across windows.</p>
+                <p>3. <span class="text-white font-bold">Patterns:</span> The pick list is sorted alphabetically. Select one to show players the current goal.</p>
             </div>
-            <button onclick="toggleDirections(false)" class="mt-8 w-full py-4 bg-slate-800 hover:bg-slate-700 text-white font-black rounded-2xl border border-slate-700">CLOSE</button>
+            <button onclick="toggleDirections(false)" class="mt-8 w-full py-4 bg-slate-800 hover:bg-slate-700 text-white font-black rounded-2xl border border-slate-700">GOT IT</button>
         </div>
     </div>
 
-    <!-- TV VIEW -->
+    <!-- Player Display View -->
     <div id="tvView" class="flex flex-col h-full flex-1">
         <div id="tvMasterContainer" class="shadow-xl">
             <div id="masterBoard" class="bingo-grid"></div>
@@ -178,19 +180,25 @@
         </div>
     </div>
 
-    <!-- OPERATOR VIEW -->
+    <!-- Operator View -->
     <div id="controlView" class="view-hidden flex-1 overflow-y-auto pb-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Caller Controls -->
             <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 flex flex-col gap-6 shadow-xl">
-                <h2 class="text-xl font-black text-white uppercase tracking-wider">Game Engine</h2>
+                <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-2 h-6 bg-indigo-500 rounded-full"></span>Game Engine
+                </h2>
                 <button onclick="drawNumber()" id="drawBtn" class="w-full py-10 bg-indigo-600 hover:bg-indigo-500 text-white rounded-3xl text-5xl font-black shadow-lg active:scale-95 transition-all">DRAW</button>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <select id="patternSelect" onchange="loadPresetPattern(); syncToTv(); saveAppState();" class="w-full py-4 bg-slate-800 text-white rounded-2xl font-bold px-4 border-2 border-slate-700 focus:border-indigo-500 outline-none"></select>
                     <button onclick="confirmReset()" id="resetBtn" class="w-full py-4 bg-slate-800 text-slate-400 border border-slate-700 rounded-2xl font-bold">RESET GAME</button>
                 </div>
             </div>
+            <!-- Verification Module -->
             <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 flex flex-col gap-4 shadow-xl">
-                <h2 class="text-xl font-black text-white uppercase tracking-wider">Verify Card</h2>
+                <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
+                    <span class="w-2 h-6 bg-amber-500 rounded-full"></span>Verify Card
+                </h2>
                 <textarea id="verifyInput" placeholder="Numbers: 5, 12, 44..." rows="2" class="flex-1 py-4 px-5 bg-slate-800 rounded-2xl border border-slate-700 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-amber-500"></textarea>
                 <button onclick="verifyCard()" class="w-full py-4 bg-amber-600 hover:bg-amber-500 text-white font-black rounded-2xl shadow-lg uppercase tracking-wider text-sm">Verify</button>
                 <div id="verifyResults" class="hidden p-4 rounded-2xl border flex items-center gap-4">
@@ -199,13 +207,14 @@
                 </div>
             </div>
         </div>
+        <!-- Manual Designer -->
         <div class="bg-slate-900/50 p-6 rounded-3xl border border-slate-800 flex flex-col gap-6 shadow-xl border-dashed">
-            <h2 class="text-lg font-black text-slate-400 uppercase tracking-wider">Library & Designer</h2>
+            <h2 class="text-lg font-black text-slate-400 uppercase tracking-wider">Pattern Designer</h2>
             <div class="flex flex-col xl:flex-row gap-8 items-start">
                 <div id="designerGrid" class="grid grid-cols-5 gap-3 bg-slate-950/50 p-6 rounded-3xl border border-slate-800/50"></div>
                 <div class="flex-1 w-full flex flex-col gap-4">
                     <input type="text" id="customPatternName" placeholder="New Pattern Name..." class="w-full py-4 px-5 bg-slate-800 rounded-2xl border border-slate-700 text-white font-bold outline-none">
-                    <button onclick="saveCustomPattern()" class="w-full py-4 bg-emerald-700/50 hover:bg-emerald-600 text-emerald-100 font-black rounded-2xl transition-all">Save Pattern</button>
+                    <button onclick="saveCustomPattern()" class="w-full py-4 bg-emerald-700/50 hover:bg-emerald-600 text-emerald-100 font-black rounded-2xl transition-all">Save to Selection Library</button>
                 </div>
             </div>
         </div>
@@ -242,6 +251,7 @@
             renderDesigner();
             updatePatternList();
             
+            // Explicit view switching via URL parameter
             const params = new URLSearchParams(window.location.search);
             if (params.get('view') === 'tv') {
                 switchView('tv');
@@ -253,10 +263,12 @@
 
             if (calledNumbers.length > 0) resumeGame(); else resetGame();
 
+            // BroadcastChannel Sync
             bc.onmessage = (ev) => {
                 if (ev.data.type === 'sync_state') applySyncedState(ev.data.state);
             };
 
+            // LocalStorage Backup Sync
             window.addEventListener('storage', (e) => {
                 if (e.key === SYNC_KEY && e.newValue) {
                     applySyncedState(JSON.parse(e.newValue));
@@ -271,19 +283,21 @@
             try {
                 let win;
                 if (isBlob) {
+                    // Preview Env Workaround
                     win = window.open("", "_blank", "width=1280,height=720");
                     if (!win) throw new Error("Blocked");
                     win.document.open();
                     win.document.write(document.documentElement.outerHTML);
                     win.document.close();
                 } else {
+                    // GitHub Pages / Local Hosting
                     const url = baseUrl + "?view=tv";
                     win = window.open(url, "_blank", "width=1280,height=720");
                 }
                 
                 if (win) switchView('control');
             } catch (e) {
-                alert("Launch Failed! Please manually open this file in a second window and keep them both in the same browser (e.g. both in Chrome).");
+                alert("Launch Failed! Please manually open this file in a second window and set it to 'TV' view.");
             }
         }
 
@@ -408,7 +422,7 @@
             const data = patterns[k]; const grid = document.getElementById('tvPatternGrid'); document.getElementById('patternNameDisplay').innerText = k;
             grid.innerHTML = '';
             for (let i = 0; i < 25; i++) {
-                const d = document.createElement('div'); d.className = data[i] === 1 ? 'pattern-dot active w-2.5 h-2.5 sm:w-2.5 sm:h-2.5' : 'pattern-dot inactive w-2.5 h-2.5 sm:w-2.5 sm:h-2.5';
+                const d = document.createElement('div'); d.className = data[i] === 1 ? 'pattern-dot active w-2.5 h-2.5' : 'pattern-dot inactive w-2.5 h-2.5';
                 if (i === 12) d.style.border = "1px solid #475569";
                 grid.appendChild(d);
             }
@@ -429,7 +443,6 @@
 
         function updatePatternList() {
             const s = document.getElementById('patternSelect'); const val = s.value; s.innerHTML = '';
-            // Sort keys alphabetically
             const sortedKeys = Object.keys(patterns).sort();
             sortedKeys.forEach(k => { const o = document.createElement('option'); o.value = k; o.innerText = k; s.appendChild(o); });
             if (val && patterns[val]) s.value = val;
