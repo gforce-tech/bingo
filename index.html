@@ -113,13 +113,13 @@
         }
 
         .pattern-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.2s;
         }
-        .pattern-dot.active { background-color: var(--accent-secondary); box-shadow: 0 0 8px var(--accent-secondary); }
+        .pattern-dot.active { background-color: var(--accent-secondary); box-shadow: 0 0 10px var(--accent-secondary); }
         .pattern-dot.inactive { background-color: #334155; }
     </style>
 </head>
@@ -138,7 +138,7 @@
                 <input type="checkbox" id="voiceToggle" onchange="saveAppState()" class="w-4 h-4 rounded border-slate-600 bg-slate-700 text-indigo-600 focus:ring-indigo-500"> 
                 Voice
             </label>
-            <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest hidden md:inline">v4.2</span>
+            <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest hidden md:inline">v5.0</span>
         </div>
     </div>
 
@@ -155,11 +155,15 @@
                     Calls: <span id="callCounter" class="text-indigo-400">0</span>
                 </div>
             </div>
-            <div class="col-span-2 bg-slate-900/90 p-4 rounded-[2rem] border border-slate-800 shadow-2xl flex flex-col items-center justify-center relative overflow-hidden">
+            <div class="col-span-2 bg-slate-900/90 p-4 rounded-[2rem] border border-slate-800 shadow-2xl flex relative overflow-hidden">
                 <div class="absolute top-3 right-6 text-rose-400 font-black text-[9px] tracking-widest opacity-40 uppercase">Target Pattern</div>
-                <div class="flex flex-col items-center gap-1">
-                    <div id="tvPatternGrid" class="grid grid-cols-5 gap-1 bg-slate-950/40 p-3 rounded-xl border border-slate-800/30"></div>
-                    <div id="patternNameDisplay" class="text-[11px] font-black text-rose-500 uppercase tracking-widest italic text-center opacity-90">Full House</div>
+                <div class="flex flex-row items-center justify-between w-full pr-2">
+                    <div id="tvPatternGrid" class="grid grid-cols-5 gap-1.5 bg-slate-950/40 p-4 rounded-2xl border border-slate-800/30"></div>
+                    <div class="flex flex-col items-end flex-1 ml-4 overflow-hidden text-right">
+                        <div id="patternNameDisplay" class="text-lg md:text-xl font-black text-rose-500 uppercase tracking-tighter italic leading-none break-words max-w-full pr-3">
+                            Full House
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -177,7 +181,7 @@
                 </div>
             </div>
             <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 flex flex-col gap-4 shadow-xl">
-                <h2 class="text-xl font-black text-white uppercase tracking-wider">Verify Card</h2>
+                <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">Verify Card</h2>
                 <textarea id="verifyInput" placeholder="Numbers: 5, 12, 44..." rows="2" class="flex-1 py-4 px-5 bg-slate-800 rounded-2xl border border-slate-700 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-amber-500"></textarea>
                 <button onclick="verifyCard()" class="w-full py-4 bg-amber-600 hover:bg-amber-500 text-white font-black rounded-2xl shadow-lg uppercase tracking-wider text-sm">Verify</button>
                 <div id="verifyResults" class="hidden p-4 rounded-2xl border flex items-center gap-4">
@@ -192,7 +196,7 @@
                 <div id="designerGrid" class="grid grid-cols-5 gap-3 bg-slate-950/50 p-6 rounded-3xl border border-slate-800/50"></div>
                 <div class="flex-1 w-full flex flex-col gap-4">
                     <input type="text" id="customPatternName" placeholder="New Pattern Name..." class="w-full py-4 px-5 bg-slate-800 rounded-2xl border border-slate-700 text-white font-bold outline-none">
-                    <button onclick="saveCustomPattern()" class="w-full py-4 bg-emerald-700/50 hover:bg-emerald-600 text-emerald-100 font-black rounded-2xl transition-all">Save to selection library</button>
+                    <button onclick="saveCustomPattern()" class="w-full py-4 bg-emerald-700/50 hover:bg-emerald-600 text-emerald-100 font-black rounded-2xl transition-all">Save to library</button>
                 </div>
             </div>
         </div>
@@ -203,9 +207,9 @@
         <div class="bg-slate-900 border border-slate-700 p-8 rounded-[2.5rem] max-w-2xl w-full shadow-2xl" onclick="event.stopPropagation()">
             <h2 class="text-3xl font-black text-amber-400 mb-6 flex items-center gap-3"><span>📖</span> BINGO GUIDE</h2>
             <div class="space-y-4 text-slate-300">
-                <p>1. <span class="text-white font-bold">New Display:</span> Click <span class="text-emerald-400 font-bold">🚀 TV WINDOW</span>. This creates a dedicated player screen. Drag it to your TV.</p>
-                <p>2. <span class="text-white font-bold">Operation:</span> Keep this main window on the <span class="text-indigo-400 font-bold">OPERATOR</span> tab. Actions here update the TV automatically.</p>
-                <p>3. <span class="text-white font-bold">Note:</span> If running locally from a file, sync is most reliable in Chrome.</p>
+                <p>1. <span class="text-white font-bold">New Display:</span> Click <span class="text-emerald-400 font-bold">🚀 TV WINDOW</span> to open a player display. It will stay synced with your draws.</p>
+                <p>2. <span class="text-white font-bold">Sync:</span> Updates travel via three paths (Broadcast, Storage, and Direct Link) to ensure the TV screen always matches the Operator.</p>
+                <p>3. <span class="text-white font-bold">Clean Display:</span> The new window removes all navigation bars for a cinematic TV look.</p>
             </div>
             <button onclick="toggleDirections(false)" class="mt-8 w-full py-4 bg-slate-800 hover:bg-slate-700 text-white font-black rounded-2xl border border-slate-700">CLOSE</button>
         </div>
@@ -213,8 +217,10 @@
 
     <script>
         const letters = ['B', 'I', 'N', 'G', 'O'];
-        const SYNC_KEY = 'bingo_live_sync';
+        const SYNC_KEY = 'bingo_live_sync_v4';
         const DISPLAY_WINDOW_NAME = "bingo_tv_display";
+        
+        let tvWindow = null;
         const bc = new BroadcastChannel('bingo_sync_channel');
         
         let calledNumbers = [];
@@ -244,28 +250,35 @@
             
             const params = new URLSearchParams(window.location.search);
             
-            // ROLE ENFORCEMENT:
-            // This is the key fix. If we are in the display window, 
-            // force TV mode immediately and HIDE the navbar completely.
+            // ROLE DETERMINATION - Strict Enforcement
             if (params.get('clean') === 'true' || window.name === DISPLAY_WINDOW_NAME) {
-                document.getElementById('navBar').style.display = 'none';
+                // If this is the display window, hide navBar aggressively
+                document.getElementById('navBar').style.setProperty('display', 'none', 'important');
                 switchView('tv');
             } else {
-                // Main window logic: prioritize saved view or URL params, default to Operator
-                const lastView = params.get('view') || 'operator';
-                switchView(lastView === 'tv' ? 'tv' : 'control');
+                // Main window logic: default to Operator view (control)
+                const requestedView = params.get('view');
+                if (requestedView === 'tv') switchView('tv');
+                else switchView('control');
             }
 
-            if (calledNumbers.length > 0) resumeGame(); else resetGame();
+            // Sync current state immediately
+            const savedLiveState = localStorage.getItem(SYNC_KEY);
+            if (savedLiveState) applySyncedState(JSON.parse(savedLiveState));
+            else if (calledNumbers.length > 0) refreshUI(); 
+            else resetGame();
 
+            // SYNC PATHS
             bc.onmessage = (ev) => {
-                if (ev.data.type === 'sync_state') applySyncedState(ev.data.state);
+                if (ev.data && ev.data.type === 'sync_state') applySyncedState(ev.data.state);
             };
 
+            window.addEventListener('message', (ev) => {
+                if (ev.data && ev.data.type === 'sync_state') applySyncedState(ev.data.state);
+            });
+
             window.addEventListener('storage', (e) => {
-                if (e.key === SYNC_KEY && e.newValue) {
-                    applySyncedState(JSON.parse(e.newValue));
-                }
+                if (e.key === SYNC_KEY && e.newValue) applySyncedState(JSON.parse(e.newValue));
             });
         }
 
@@ -273,30 +286,29 @@
             const isBlob = window.location.protocol === 'blob:';
             const baseUrl = window.location.origin + window.location.pathname;
             
+            syncToTv();
+
             try {
-                let win;
                 if (isBlob) {
-                    // Environment is restricted preview: Inject script to self-identify
-                    win = window.open("", DISPLAY_WINDOW_NAME, "width=1280,height=720");
-                    if (!win) throw new Error("Blocked");
+                    tvWindow = window.open("", DISPLAY_WINDOW_NAME, "width=1280,height=720");
+                    if (!tvWindow) throw new Error("Blocked");
                     
                     let sourceHtml = document.documentElement.outerHTML;
-                    // We rewrite the init call in the child to force-set the window name
-                    let displayHtml = sourceHtml.replace('init()', `window.name="${DISPLAY_WINDOW_NAME}"; init();`);
+                    // Force the role inside the new window's logic
+                    let displayHtml = sourceHtml.replace('<script>', '<script>window.name="' + DISPLAY_WINDOW_NAME + '";');
                     
-                    win.document.open();
-                    win.document.write(displayHtml);
-                    win.document.close();
+                    tvWindow.document.open();
+                    tvWindow.document.write(displayHtml);
+                    tvWindow.document.close();
                 } else {
-                    // Environment is standard browser/GitHub: Use URL params
                     const url = baseUrl + "?view=tv&clean=true";
-                    win = window.open(url, DISPLAY_WINDOW_NAME, "width=1280,height=720");
+                    tvWindow = window.open(url, DISPLAY_WINDOW_NAME, "width=1280,height=720");
                 }
                 
-                // Keep the operator window on the control screen
+                // Switch the controller window to Operator dashboard
                 switchView('control');
             } catch (e) {
-                alert("Launch Failed! Browser blocked the popup. Please manually open index.html?view=tv&clean=true in a second window.");
+                alert("Launch Failed! Browser blocked the popup.");
             }
         }
 
@@ -326,15 +338,25 @@
                 voice: document.getElementById('voiceToggle').checked,
                 timestamp: Date.now() 
             };
-            bc.postMessage({ type: 'sync_state', state });
+            
+            const payload = { type: 'sync_state', state };
+            bc.postMessage(payload);
+            if (tvWindow && !tvWindow.closed) tvWindow.postMessage(payload, "*");
             localStorage.setItem(SYNC_KEY, JSON.stringify(state));
         }
 
         function applySyncedState(s) {
-            calledNumbers = s.calledNumbers;
-            document.getElementById('voiceToggle').checked = s.voice;
-            if (s.activePattern) document.getElementById('patternSelect').value = s.activePattern;
-            
+            if (!s) return;
+            calledNumbers = s.calledNumbers || [];
+            document.getElementById('voiceToggle').checked = !!s.voice;
+            if (s.activePattern) {
+                const select = document.getElementById('patternSelect');
+                if (select.value !== s.activePattern) select.value = s.activePattern;
+            }
+            refreshUI();
+        }
+
+        function refreshUI() {
             renderMasterBoard();
             calledNumbers.forEach(n => {
                 const c = document.getElementById(`cell-${n}`);
@@ -376,8 +398,10 @@
 
         function drawNumber() {
             if (deck.length === 0) return;
-            const num = deck.pop(); calledNumbers.push(num);
-            applySyncedState({ calledNumbers, voice: document.getElementById('voiceToggle').checked, activePattern: document.getElementById('patternSelect').value });
+            const num = deck.pop(); 
+            calledNumbers.push(num);
+            refreshUI();
+            syncToTv();
             if (document.getElementById('voiceToggle').checked) {
                 const l = letters[Math.floor((num - 1) / 15)];
                 window.speechSynthesis.speak(new SpeechSynthesisUtterance(`${l}, ${num}`));
@@ -405,69 +429,103 @@
         }
 
         function resetGame() {
-            calledNumbers = []; deck = Array.from({length: 75}, (_, i) => i + 1);
+            calledNumbers = []; 
+            deck = Array.from({length: 75}, (_, i) => i + 1);
             for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
             document.getElementById('callCounter').innerText = '0';
             document.getElementById('currentCallText').innerText = '--';
             document.getElementById('verifyResults').classList.add('hidden');
             renderMasterBoard();
-            document.getElementById('drawBtn').disabled = false; document.getElementById('drawBtn').innerText = "DRAW";
+            document.getElementById('drawBtn').disabled = false; 
+            document.getElementById('drawBtn').innerText = "DRAW";
             saveAppState();
             loadPresetPattern();
         }
 
         function loadPresetPattern() {
-            const k = document.getElementById('patternSelect').value; if (!patterns[k]) return;
-            const data = patterns[k]; const grid = document.getElementById('tvPatternGrid'); document.getElementById('patternNameDisplay').innerText = k;
+            const k = document.getElementById('patternSelect').value; 
+            if (!patterns[k]) return;
+            const data = patterns[k]; 
+            const grid = document.getElementById('tvPatternGrid'); 
+            document.getElementById('patternNameDisplay').innerText = k;
             grid.innerHTML = '';
             for (let i = 0; i < 25; i++) {
-                const d = document.createElement('div'); d.className = data[i] === 1 ? 'pattern-dot active w-2.5 h-2.5 sm:w-2.5 sm:h-2.5' : 'pattern-dot inactive w-2.5 h-2.5 sm:w-2.5 sm:h-2.5';
+                const d = document.createElement('div');
+                d.className = data[i] === 1 ? 'pattern-dot active w-3.5 h-3.5 md:w-5 md:h-5' : 'pattern-dot inactive w-3.5 h-3.5 md:w-5 md:h-5';
                 if (i === 12) d.style.border = "1px solid #475569";
                 grid.appendChild(d);
             }
         }
 
         function loadStorage() {
-            const p = localStorage.getItem('bingo_patterns_v2'); patterns = p ? JSON.parse(p) : {...defaultPatterns};
+            const p = localStorage.getItem('bingo_patterns_v2'); 
+            patterns = p ? JSON.parse(p) : {...defaultPatterns};
             const s = localStorage.getItem('bingo_state_v2');
-            if (s) { const st = JSON.parse(s); calledNumbers = st.calledNumbers || []; deck = st.deck || []; document.getElementById('voiceToggle').checked = st.voice || false; }
+            if (s) { 
+                const st = JSON.parse(s); 
+                calledNumbers = st.calledNumbers || []; 
+                deck = st.deck || []; 
+                document.getElementById('voiceToggle').checked = !!st.voice; 
+            }
         }
 
         function resumeGame() {
-            renderMasterBoard();
-            applySyncedState({ calledNumbers, voice: document.getElementById('voiceToggle').checked, activePattern: document.getElementById('patternSelect').value });
-            const st = JSON.parse(localStorage.getItem('bingo_state_v2')); if (st?.activePattern) document.getElementById('patternSelect').value = st.activePattern;
+            refreshUI();
+            const st = JSON.parse(localStorage.getItem('bingo_state_v2')); 
+            if (st?.activePattern) document.getElementById('patternSelect').value = st.activePattern;
             loadPresetPattern();
         }
 
         function updatePatternList() {
-            const s = document.getElementById('patternSelect'); const val = s.value; s.innerHTML = '';
+            const s = document.getElementById('patternSelect'); 
+            const val = s.value; 
+            s.innerHTML = '';
             const sortedKeys = Object.keys(patterns).sort();
             sortedKeys.forEach(k => { const o = document.createElement('option'); o.value = k; o.innerText = k; s.appendChild(o); });
             if (val && patterns[val]) s.value = val;
         }
 
         function renderDesigner() {
-            const g = document.getElementById('designerGrid'); g.innerHTML = '';
+            const g = document.getElementById('designerGrid'); 
+            g.innerHTML = '';
             for (let i = 0; i < 25; i++) {
-                const d = document.createElement('div'); d.className = 'pattern-dot inactive w-10 h-10';
-                d.onclick = () => { currentCustomPattern[i] = currentCustomPattern[i] === 1 ? 0 : 1; d.className = currentCustomPattern[i] === 1 ? 'pattern-dot active w-10 h-10' : 'pattern-dot inactive w-10 h-10'; };
+                const d = document.createElement('div'); 
+                d.className = 'pattern-dot inactive w-10 h-10';
+                d.onclick = () => { 
+                    currentCustomPattern[i] = currentCustomPattern[i] === 1 ? 0 : 1; 
+                    d.className = currentCustomPattern[i] === 1 ? 'pattern-dot active w-10 h-10' : 'pattern-dot inactive w-10 h-10'; 
+                };
                 if (i === 12) d.innerHTML = "<span class='text-[8px] opacity-20'>FREE</span>";
                 g.appendChild(d);
             }
         }
 
         function saveCustomPattern() {
-            const n = document.getElementById('customPatternName').value.trim(); if (!n) return;
-            patterns[n] = [...currentCustomPattern]; updatePatternList(); document.getElementById('patternSelect').value = n;
-            loadPresetPattern(); document.getElementById('customPatternName').value = ''; currentCustomPattern = Array(25).fill(0); renderDesigner(); saveAppState();
+            const n = document.getElementById('customPatternName').value.trim(); 
+            if (!n) return;
+            patterns[n] = [...currentCustomPattern]; 
+            updatePatternList(); 
+            document.getElementById('patternSelect').value = n;
+            loadPresetPattern(); 
+            document.getElementById('customPatternName').value = ''; 
+            currentCustomPattern = Array(25).fill(0); 
+            renderDesigner(); 
+            saveAppState();
         }
 
         function toggleDirections(show) { document.getElementById('directionsModal').classList.toggle('view-hidden', !show); }
+        
         function confirmReset() {
             const b = document.getElementById('resetBtn');
-            if (b.innerText === "RESET GAME") { b.innerText = "SURE?"; b.classList.add('bg-red-600', 'text-white'); setTimeout(() => { b.innerText = "RESET GAME"; b.classList.remove('bg-red-600', 'text-white'); }, 3000); }
-            else { resetGame(); b.innerText = "RESET GAME"; b.classList.remove('bg-red-600', 'text-white'); }
+            if (b.innerText === "RESET GAME") { 
+                b.innerText = "SURE?"; 
+                b.classList.add('bg-red-600', 'text-white'); 
+                setTimeout(() => { b.innerText = "RESET GAME"; b.classList.remove('bg-red-600', 'text-white'); }, 3000); 
+            } else { 
+                resetGame(); 
+                b.innerText = "RESET GAME"; 
+                b.classList.remove('bg-red-600', 'text-white'); 
+            }
         }
 
         window.onload = init;
