@@ -11,9 +11,9 @@
         :root {
             --bg-main: #0f172a;
             --panel-bg: #1e293b;
-            --accent-primary: #6366f1; /* Indigo */
-            --accent-secondary: #f43f5e; /* Rose */
-            --accent-highlight: #f59e0b; /* Amber */
+            --accent-primary: #6366f1;
+            --accent-secondary: #f43f5e;
+            --accent-highlight: #f59e0b;
         }
 
         body {
@@ -27,7 +27,6 @@
             padding: 0.5rem;
         }
 
-        /* Master Board Layout - Forced to fit height and prevent clipping */
         #tvMasterContainer {
             flex: 1 1 0%;
             min-height: 0;
@@ -43,7 +42,7 @@
         .bingo-grid {
             display: grid;
             grid-template-columns: auto repeat(15, 1fr);
-            grid-template-rows: repeat(5, 1fr); /* Forces exactly 5 rows to fit vertical space */
+            grid-template-rows: repeat(5, 1fr); 
             gap: 4px; 
             height: 100%;
         }
@@ -55,7 +54,7 @@
             border-radius: 6px;
             font-weight: 800;
             transition: all 0.3s ease;
-            font-size: clamp(10px, 1.3vh, 18px);
+            font-size: clamp(12px, 2.5vh, 26px); 
             border: 1px solid #334155;
             background-color: #1e293b;
             color: #475569;
@@ -79,7 +78,6 @@
             justify-content: center;
         }
 
-        /* Bottom Dashboard - Side-by-Side Layout */
         #dashboardRow { 
             height: 28vh; 
             min-height: 130px; 
@@ -127,12 +125,12 @@
 </head>
 <body class="md:p-4">
 
-    <!-- Navbar -->
+    <!-- Top Navigation Bar -->
     <div id="navBar" class="flex justify-between items-center mb-2 bg-slate-800/40 p-2 rounded-2xl border border-slate-700/50 backdrop-blur-md no-print">
         <div class="flex gap-1 sm:gap-2">
-            <button onclick="switchView('tv')" id="btnViewTv" class="px-3 sm:px-5 py-2 rounded-xl bg-indigo-600 font-bold text-xs sm:text-sm transition-all hover:bg-indigo-500 shadow-lg">TV</button>
-            <button onclick="switchView('control')" id="btnViewControl" class="px-3 sm:px-5 py-2 rounded-xl bg-slate-700 font-bold text-xs sm:text-sm transition-all hover:bg-slate-600">OPERATOR</button>
-            <button onclick="launchTvWindow()" class="px-3 sm:px-5 py-2 rounded-xl bg-emerald-700 font-bold text-xs sm:text-sm transition-all hover:bg-emerald-600 shadow-lg border border-emerald-500/30">🚀 TV WINDOW</button>
+            <button onclick="switchView('tv')" id="btnViewTv" class="px-3 sm:px-5 py-2 rounded-xl bg-indigo-600 font-bold text-xs sm:text-sm shadow-lg">TV</button>
+            <button onclick="switchView('control')" id="btnViewControl" class="px-3 sm:px-5 py-2 rounded-xl bg-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-600">OPERATOR</button>
+            <button onclick="launchTvWindow()" class="px-3 sm:px-5 py-2 rounded-xl bg-emerald-700 font-bold text-xs sm:text-sm hover:bg-emerald-600 shadow-lg border border-emerald-500/30">🚀 TV WINDOW</button>
             <button onclick="toggleDirections(true)" class="px-3 sm:px-5 py-2 rounded-xl bg-amber-600/20 text-amber-400 border border-amber-500/30 font-bold text-xs sm:text-sm hover:bg-amber-600/40 transition-all">HELP</button>
         </div>
         <div class="flex items-center gap-4 sm:gap-6">
@@ -140,20 +138,7 @@
                 <input type="checkbox" id="voiceToggle" onchange="saveAppState()" class="w-4 h-4 rounded border-slate-600 bg-slate-700 text-indigo-600 focus:ring-indigo-500"> 
                 Voice
             </label>
-            <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest hidden md:inline">v3.6</span>
-        </div>
-    </div>
-
-    <!-- Help Overlay -->
-    <div id="directionsModal" class="view-hidden" onclick="toggleDirections(false)">
-        <div class="bg-slate-900 border border-slate-700 p-8 rounded-[2.5rem] max-w-2xl w-full shadow-2xl" onclick="event.stopPropagation()">
-            <h2 class="text-3xl font-black text-amber-400 mb-6 flex items-center gap-3"><span>📖</span> QUICK GUIDE</h2>
-            <div class="space-y-4 text-slate-300">
-                <p>1. <span class="text-white font-bold">Standalone Use:</span> Open this file on your tablet. Click <span class="text-emerald-400 font-bold">🚀 TV WINDOW</span> to open the player display.</p>
-                <p>2. <span class="text-white font-bold">Sync:</span> Keep one window on <span class="text-indigo-400 font-bold">OPERATOR</span> and the other on <span class="text-indigo-400 font-bold">TV</span>. They will update automatically across windows.</p>
-                <p>3. <span class="text-white font-bold">Patterns:</span> The pick list is sorted alphabetically. Select one to show players the current goal.</p>
-            </div>
-            <button onclick="toggleDirections(false)" class="mt-8 w-full py-4 bg-slate-800 hover:bg-slate-700 text-white font-black rounded-2xl border border-slate-700">GOT IT</button>
+            <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest hidden md:inline">v4.2</span>
         </div>
     </div>
 
@@ -180,25 +165,19 @@
         </div>
     </div>
 
-    <!-- Operator View -->
+    <!-- Operator Control View -->
     <div id="controlView" class="view-hidden flex-1 overflow-y-auto pb-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Caller Controls -->
             <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 flex flex-col gap-6 shadow-xl">
-                <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
-                    <span class="w-2 h-6 bg-indigo-500 rounded-full"></span>Game Engine
-                </h2>
+                <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">Game Engine</h2>
                 <button onclick="drawNumber()" id="drawBtn" class="w-full py-10 bg-indigo-600 hover:bg-indigo-500 text-white rounded-3xl text-5xl font-black shadow-lg active:scale-95 transition-all">DRAW</button>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <select id="patternSelect" onchange="loadPresetPattern(); syncToTv(); saveAppState();" class="w-full py-4 bg-slate-800 text-white rounded-2xl font-bold px-4 border-2 border-slate-700 focus:border-indigo-500 outline-none"></select>
                     <button onclick="confirmReset()" id="resetBtn" class="w-full py-4 bg-slate-800 text-slate-400 border border-slate-700 rounded-2xl font-bold">RESET GAME</button>
                 </div>
             </div>
-            <!-- Verification Module -->
             <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 flex flex-col gap-4 shadow-xl">
-                <h2 class="text-xl font-black text-white uppercase tracking-wider flex items-center gap-2">
-                    <span class="w-2 h-6 bg-amber-500 rounded-full"></span>Verify Card
-                </h2>
+                <h2 class="text-xl font-black text-white uppercase tracking-wider">Verify Card</h2>
                 <textarea id="verifyInput" placeholder="Numbers: 5, 12, 44..." rows="2" class="flex-1 py-4 px-5 bg-slate-800 rounded-2xl border border-slate-700 text-white font-mono text-lg outline-none focus:ring-2 focus:ring-amber-500"></textarea>
                 <button onclick="verifyCard()" class="w-full py-4 bg-amber-600 hover:bg-amber-500 text-white font-black rounded-2xl shadow-lg uppercase tracking-wider text-sm">Verify</button>
                 <div id="verifyResults" class="hidden p-4 rounded-2xl border flex items-center gap-4">
@@ -207,27 +186,41 @@
                 </div>
             </div>
         </div>
-        <!-- Manual Designer -->
         <div class="bg-slate-900/50 p-6 rounded-3xl border border-slate-800 flex flex-col gap-6 shadow-xl border-dashed">
             <h2 class="text-lg font-black text-slate-400 uppercase tracking-wider">Pattern Designer</h2>
             <div class="flex flex-col xl:flex-row gap-8 items-start">
                 <div id="designerGrid" class="grid grid-cols-5 gap-3 bg-slate-950/50 p-6 rounded-3xl border border-slate-800/50"></div>
                 <div class="flex-1 w-full flex flex-col gap-4">
                     <input type="text" id="customPatternName" placeholder="New Pattern Name..." class="w-full py-4 px-5 bg-slate-800 rounded-2xl border border-slate-700 text-white font-bold outline-none">
-                    <button onclick="saveCustomPattern()" class="w-full py-4 bg-emerald-700/50 hover:bg-emerald-600 text-emerald-100 font-black rounded-2xl transition-all">Save to Selection Library</button>
+                    <button onclick="saveCustomPattern()" class="w-full py-4 bg-emerald-700/50 hover:bg-emerald-600 text-emerald-100 font-black rounded-2xl transition-all">Save to selection library</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Help Modal -->
+    <div id="directionsModal" class="view-hidden" onclick="toggleDirections(false)">
+        <div class="bg-slate-900 border border-slate-700 p-8 rounded-[2.5rem] max-w-2xl w-full shadow-2xl" onclick="event.stopPropagation()">
+            <h2 class="text-3xl font-black text-amber-400 mb-6 flex items-center gap-3"><span>📖</span> BINGO GUIDE</h2>
+            <div class="space-y-4 text-slate-300">
+                <p>1. <span class="text-white font-bold">New Display:</span> Click <span class="text-emerald-400 font-bold">🚀 TV WINDOW</span>. This creates a dedicated player screen. Drag it to your TV.</p>
+                <p>2. <span class="text-white font-bold">Operation:</span> Keep this main window on the <span class="text-indigo-400 font-bold">OPERATOR</span> tab. Actions here update the TV automatically.</p>
+                <p>3. <span class="text-white font-bold">Note:</span> If running locally from a file, sync is most reliable in Chrome.</p>
+            </div>
+            <button onclick="toggleDirections(false)" class="mt-8 w-full py-4 bg-slate-800 hover:bg-slate-700 text-white font-black rounded-2xl border border-slate-700">CLOSE</button>
+        </div>
+    </div>
+
     <script>
         const letters = ['B', 'I', 'N', 'G', 'O'];
+        const SYNC_KEY = 'bingo_live_sync';
+        const DISPLAY_WINDOW_NAME = "bingo_tv_display";
+        const bc = new BroadcastChannel('bingo_sync_channel');
+        
         let calledNumbers = [];
         let deck = [];
+        let patterns = {};
         let currentCustomPattern = Array(25).fill(0);
-        
-        const SYNC_KEY = 'bingo_live_sync';
-        const bc = new BroadcastChannel('bingo_sync_channel');
 
         const defaultPatterns = {
             "Full House (Blackout)": Array(25).fill(1),
@@ -243,32 +236,32 @@
             "Picture Frame": [1,1,1,1,1, 1,0,0,0,1, 1,0,0,0,1, 1,0,0,0,1, 1,1,1,1,1]
         };
 
-        let patterns = {};
-
         function init() {
             loadStorage();
             renderMasterBoard();
             renderDesigner();
             updatePatternList();
             
-            // Explicit view switching via URL parameter
             const params = new URLSearchParams(window.location.search);
-            if (params.get('view') === 'tv') {
+            
+            // ROLE ENFORCEMENT:
+            // This is the key fix. If we are in the display window, 
+            // force TV mode immediately and HIDE the navbar completely.
+            if (params.get('clean') === 'true' || window.name === DISPLAY_WINDOW_NAME) {
+                document.getElementById('navBar').style.display = 'none';
                 switchView('tv');
-            } else if (params.get('view') === 'operator') {
-                switchView('control');
-            } else if (window.opener) {
-                switchView('tv');
+            } else {
+                // Main window logic: prioritize saved view or URL params, default to Operator
+                const lastView = params.get('view') || 'operator';
+                switchView(lastView === 'tv' ? 'tv' : 'control');
             }
 
             if (calledNumbers.length > 0) resumeGame(); else resetGame();
 
-            // BroadcastChannel Sync
             bc.onmessage = (ev) => {
                 if (ev.data.type === 'sync_state') applySyncedState(ev.data.state);
             };
 
-            // LocalStorage Backup Sync
             window.addEventListener('storage', (e) => {
                 if (e.key === SYNC_KEY && e.newValue) {
                     applySyncedState(JSON.parse(e.newValue));
@@ -283,21 +276,27 @@
             try {
                 let win;
                 if (isBlob) {
-                    // Preview Env Workaround
-                    win = window.open("", "_blank", "width=1280,height=720");
+                    // Environment is restricted preview: Inject script to self-identify
+                    win = window.open("", DISPLAY_WINDOW_NAME, "width=1280,height=720");
                     if (!win) throw new Error("Blocked");
+                    
+                    let sourceHtml = document.documentElement.outerHTML;
+                    // We rewrite the init call in the child to force-set the window name
+                    let displayHtml = sourceHtml.replace('init()', `window.name="${DISPLAY_WINDOW_NAME}"; init();`);
+                    
                     win.document.open();
-                    win.document.write(document.documentElement.outerHTML);
+                    win.document.write(displayHtml);
                     win.document.close();
                 } else {
-                    // GitHub Pages / Local Hosting
-                    const url = baseUrl + "?view=tv";
-                    win = window.open(url, "_blank", "width=1280,height=720");
+                    // Environment is standard browser/GitHub: Use URL params
+                    const url = baseUrl + "?view=tv&clean=true";
+                    win = window.open(url, DISPLAY_WINDOW_NAME, "width=1280,height=720");
                 }
                 
-                if (win) switchView('control');
+                // Keep the operator window on the control screen
+                switchView('control');
             } catch (e) {
-                alert("Launch Failed! Please manually open this file in a second window and set it to 'TV' view.");
+                alert("Launch Failed! Browser blocked the popup. Please manually open index.html?view=tv&clean=true in a second window.");
             }
         }
 
@@ -401,7 +400,7 @@
             } else {
                 res.className = "p-4 rounded-2xl border border-rose-500 bg-rose-900/20 flex items-center gap-4";
                 document.getElementById('verifyIcon').innerText = "⚠️";
-                document.getElementById('verifyText').innerHTML = `Incomplete<br><span class="text-xs font-normal">Missing: ${missing.join(', ')}</span>`;
+                document.getElementById('verifyText').innerHTML = `Incomplete<br><span class="text-xs font-normal text-white">Missing: ${missing.join(', ')}</span>`;
             }
         }
 
@@ -422,7 +421,7 @@
             const data = patterns[k]; const grid = document.getElementById('tvPatternGrid'); document.getElementById('patternNameDisplay').innerText = k;
             grid.innerHTML = '';
             for (let i = 0; i < 25; i++) {
-                const d = document.createElement('div'); d.className = data[i] === 1 ? 'pattern-dot active w-2.5 h-2.5' : 'pattern-dot inactive w-2.5 h-2.5';
+                const d = document.createElement('div'); d.className = data[i] === 1 ? 'pattern-dot active w-2.5 h-2.5 sm:w-2.5 sm:h-2.5' : 'pattern-dot inactive w-2.5 h-2.5 sm:w-2.5 sm:h-2.5';
                 if (i === 12) d.style.border = "1px solid #475569";
                 grid.appendChild(d);
             }
